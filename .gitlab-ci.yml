@@ -1,0 +1,82 @@
+variables:
+  ANDROID_COMPILE_SDK: "29"
+  ANDROID_BUILD_TOOLS: "29.0.0"
+  ANDROID_SDK_TOOLS:   "4333796"
+
+stages:
+  - clean
+  - build
+  - test
+  - deploy
+  - release
+
+before_script:
+  - export ANDROID_HOME=$HOME/android-sdk
+  - export ANDROID_SDK_ROOT=$HOME/android-sdk
+  - export PATH=$PATH:$HOME/android-sdk/platform-tools/
+  - chmod +x ./gradlew
+
+clean:
+  stage: clean
+  tags:
+    - android
+  script:
+    - ./gradlew clean
+  only:
+    changes:
+      - app/**/*
+
+lintDebug:
+  stage: build
+  tags:
+    - android
+  script:
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+  only:
+    changes:
+      - app/**/*
+
+assembleDebug:
+  stage: build
+  tags:
+    - android
+  script:
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+      - app/build/outputs/
+  only:
+    changes:
+      - app/**/*
+
+debugTests:
+  stage: test
+  tags:
+    - android
+  script:
+    - ./gradlew -Pci --console=plain :app:testDebug
+  only:
+    changes:
+      - app/**/*
+
+deployJobs:
+  stage: deploy
+  tags:
+    - android
+    - web
+  script:
+    - echo "To be done later"
+  except:
+    - develop
+
+assembleRelease:
+  stage: release
+  tags:
+    - android
+  script:
+    - ./gradlew assembleRelease
+  artifacts:
+    paths:
+      - app/build/outputs/
+  only:
+    - tags
