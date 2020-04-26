@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
