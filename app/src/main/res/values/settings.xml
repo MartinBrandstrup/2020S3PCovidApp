@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="API_URL">https://api.covid19api.com</string>
+    <string name="API_Countries">/countries</string>
+    <string name="API_Summary">/summary</string>
+</resources>
