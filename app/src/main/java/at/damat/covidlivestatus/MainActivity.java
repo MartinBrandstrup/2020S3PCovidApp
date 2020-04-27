@@ -26,6 +26,9 @@ import static at.damat.covidlivestatus.RequestHandler.*;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
+    private final static int GOOD_STAT = 0;
+    private final static int BAD_STAT = 1;
+    private final static int NEUTRAL_STAT = 2;
     private ArrayList<StructuraCountry> structuraCountries = new ArrayList<>();
     private ArrayList<StructuraSummary> structuraSummaries = new ArrayList<>();
     private ArrayList<String> countries = new ArrayList<>();
@@ -50,20 +53,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void editBad(EditText editText) {
-        editText.setTypeface(editText.getTypeface(), Typeface.BOLD);
-        editText.setTextColor(getColor(android.R.color.holo_red_light));
+    private void editStat(EditText editText, int statType) {
+        switch (statType) {
+            case GOOD_STAT:
+                editText.setTypeface(editText.getTypeface(), Typeface.BOLD);
+                editText.setTextColor(getColor(android.R.color.holo_green_dark));
+                break;
+            case BAD_STAT:
+                editText.setTypeface(editText.getTypeface(), Typeface.BOLD);
+                editText.setTextColor(getColor(android.R.color.holo_red_light));
+                break;
+            default:
+                editText.setTypeface(editText.getTypeface(), Typeface.NORMAL);
+                editText.setTextColor(android.R.attr.editTextColor);
+        }
     }
 
-    private void editGood(EditText editText) {
-        editText.setTypeface(editText.getTypeface(), Typeface.BOLD);
-        editText.setTextColor(getColor(android.R.color.holo_green_dark));
-    }
-
-    private void editNeutral(EditText editText) {
-        editText.setTypeface(editText.getTypeface(), Typeface.NORMAL);
-        editText.setTextColor(android.R.attr.editTextColor);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,15 +147,15 @@ public class MainActivity extends AppCompatActivity {
                                 lastUpdate.setText(structuraSummaries.get(position).lastUpdate.getTime().toString());
                                 for (EditText edittext : new EditText[]{newConfirmed, newDeaths}) {
                                     if (Integer.parseInt(edittext.getText().toString()) > 0) {
-                                        editBad(edittext);
+                                        editStat(edittext, BAD_STAT);
                                     } else {
-                                        editNeutral(edittext);
+                                        editStat(edittext, NEUTRAL_STAT);
                                     }
                                 }
                                 if (Integer.parseInt(newRecovered.getText().toString()) > 0) {
-                                    editGood(newRecovered);
+                                    editStat(newRecovered, GOOD_STAT);
                                 } else {
-                                    editNeutral(newRecovered);
+                                    editStat(newRecovered, NEUTRAL_STAT);
                                 }
                             }
                         } catch (ExecutionException | InterruptedException | JSONException | ParseException ex) {
