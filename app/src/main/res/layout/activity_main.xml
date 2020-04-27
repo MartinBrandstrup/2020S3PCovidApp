@@ -52,116 +52,116 @@
             app:layout_constraintStart_toEndOf="@+id/lay_left"
             app:layout_constraintTop_toBottomOf="@id/progressbar">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/lay_right"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        <TextView
-                android:id="@+id/tv_label_totalconf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="Total Confirmed"/>
-
-        <EditText
-                android:id="@+id/edit_totalconf"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/lay_right"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                app:layout_constraintTop_toBottomOf="@id/tv_label_totalconf"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:layout_height="wrap_content">
 
-        <TextView
-                android:id="@+id/tv_label_newconf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/edit_totalconf"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="New Confirmed"/>
 
-        <EditText
-                android:id="@+id/edit_newconf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                app:layout_constraintTop_toBottomOf="@id/tv_label_newconf"
-                app:layout_constraintStart_toStartOf="parent"/>
+            <TextView
+                    android:id="@+id/tv_label_totalconf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="Total Confirmed"/>
 
-        <TextView
-                android:id="@+id/tv_label_totaldeath"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/edit_newconf"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="Total Death"/>
+            <EditText
+                    android:id="@+id/edit_totalconf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label_totalconf"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-        <EditText
-                android:id="@+id/edit_totaldeath"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                app:layout_constraintTop_toBottomOf="@id/tv_label_totaldeath"
-                app:layout_constraintStart_toStartOf="parent"/>
+            <TextView
+                    android:id="@+id/tv_label_newconf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/edit_totalconf"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="New Confirmed"/>
 
-        <TextView
-                android:id="@+id/tv_label_newdeath"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/edit_totaldeath"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="New Death"/>
+            <EditText
+                    android:id="@+id/edit_newconf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label_newconf"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-        <EditText
-                android:id="@+id/edit_newdeath"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                app:layout_constraintTop_toBottomOf="@id/tv_label_newdeath"
-                app:layout_constraintStart_toStartOf="parent"/>
+            <TextView
+                    android:id="@+id/tv_label_totaldeath"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/edit_newconf"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="Total Death"/>
 
-        <TextView
-                android:id="@+id/tv_label_totalrec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/edit_newdeath"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="Total Recovered"/>
+            <EditText
+                    android:id="@+id/edit_totaldeath"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label_totaldeath"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-        <EditText
-                android:id="@+id/edit_totalrec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                app:layout_constraintTop_toBottomOf="@id/tv_label_totalrec"
-                app:layout_constraintStart_toStartOf="parent"/>
+            <TextView
+                    android:id="@+id/tv_label_newdeath"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/edit_totaldeath"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="New Death"/>
 
-        <TextView
-                android:id="@+id/tv_label_newdrec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/edit_totalrec"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="New Recovered"/>
+            <EditText
+                    android:id="@+id/edit_newdeath"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label_newdeath"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-        <EditText
-                android:id="@+id/edit_newrec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                app:layout_constraintTop_toBottomOf="@id/tv_label_newdrec"
-                app:layout_constraintStart_toStartOf="parent"/>
+            <TextView
+                    android:id="@+id/tv_label_totalrec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/edit_newdeath"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="Total Recovered"/>
 
-        <TextView
-                android:id="@+id/tv_lasupdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/edit_newrec"
-                app:layout_constraintStart_toStartOf="parent"/>
+            <EditText
+                    android:id="@+id/edit_totalrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label_totalrec"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                    android:id="@+id/tv_label_newdrec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/edit_totalrec"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="New Recovered"/>
+
+            <EditText
+                    android:id="@+id/edit_newrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label_newdrec"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                    android:id="@+id/tv_lasupdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/edit_newrec"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
