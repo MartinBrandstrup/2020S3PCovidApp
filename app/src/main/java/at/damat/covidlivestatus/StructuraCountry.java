@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 public class StructuraCountry {
     public String country;
-    public String slug;
     public String isod2;
 
-    public StructuraCountry(String country, String slug, String isod2) {
+    public StructuraCountry(String country, String isod2) {
         this.country = country;
-        this.slug = slug;
         this.isod2 = isod2;
     }
 
@@ -19,14 +17,6 @@ public class StructuraCountry {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
     }
 
     public String getIsod2() {

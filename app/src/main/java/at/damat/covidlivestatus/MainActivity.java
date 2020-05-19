@@ -16,8 +16,7 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 editText.setTypeface(editText.getTypeface(), Typeface.NORMAL);
-                editText.setTextColor(android.R.attr.editTextColor);
+                editText.setTextColor(getColor(android.R.color.darker_gray));
         }
     }
 
@@ -83,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
             JSONArray allCountriesJSON = new JSONArray();
             allCountriesJSON = new RequestAsync(getString(R.string.API_URL) + getString(R.string.API_Countries), "GET", null, progressBar).execute().get();
             for (int i = 0; i < allCountriesJSON.length(); i++) {
-                structuraCountries.add(new StructuraCountry(allCountriesJSON.getJSONObject(i).getString("Country"), allCountriesJSON.getJSONObject(i).getString("Slug"), allCountriesJSON.getJSONObject(i).getString("ISO2")));
-                countries.add(allCountriesJSON.getJSONObject(i).getString("Country"));
+                structuraCountries.add(new StructuraCountry(allCountriesJSON.getJSONObject(i).getString("countryName"), allCountriesJSON.getJSONObject(i).getString("countryCode")));
+                countries.add(allCountriesJSON.getJSONObject(i).getString("countryName"));
             }
             ArrayAdapter<String> countriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, countries);
             final AutoCompleteTextView countrySelect = findViewById(R.id.ac_country);
@@ -98,69 +97,81 @@ public class MainActivity extends AppCompatActivity {
             countrySelect.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                    if (BuildConfig.DEBUG) Log.d(TAG, "Item # selected :: " + i);
-//                    String selectedCountry = countries.get(i);
                     InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
                     String selectedCountry = (String)adapterView.getItemAtPosition(i);
                     if (BuildConfig.DEBUG) Log.d(TAG, "Country selected :: " + selectedCountry);
                     StructuraCountry.Pair<Boolean, Integer> countryPosition = StructuraCountry.GetPositionByCountry(structuraCountries, selectedCountry);
                     if (countryPosition.getFound()) {
-                        int position = 0;
                         JSONArray countrySummaryJSON = new JSONArray();
                         try {
-                            countrySummaryJSON = new RequestAsync(getString(R.string.API_URL) + getString(R.string.API_Summary), "GET_SUM", null, progressBar).execute().get();
-                            structuraSummaries.clear();
+                            countrySummaryJSON = new RequestAsync(getString(R.string.API_URL) + getString(R.string.API_Summary) + "/" + structuraCountries.get(countryPosition.getPosition()).getIsod2().toLowerCase(), "GET", null, progressBar).execute().get();
                             Calendar cal = Calendar.getInstance();
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
-                            String lastCountry = new String();
-                            for (int j = 0; j < countrySummaryJSON.length(); j++) {
-                                cal.setTime(sdf.parse(countrySummaryJSON.getJSONObject(j).getString("Date").replace("Z", "+0000")));
-                                lastCountry = countrySummaryJSON.getJSONObject(j).getString("Country");
-                                structuraSummaries.add(new StructuraSummary(lastCountry, countrySummaryJSON.getJSONObject(j).getString("CountryCode"), countrySummaryJSON.getJSONObject(j).getString("Slug"), countrySummaryJSON.getJSONObject(j).getInt("NewConfirmed"), countrySummaryJSON.getJSONObject(j).getInt("TotalConfirmed"), countrySummaryJSON.getJSONObject(j).getInt("NewDeaths"), countrySummaryJSON.getJSONObject(j).getInt("TotalDeaths"), countrySummaryJSON.getJSONObject(j).getInt("NewRecovered"), countrySummaryJSON.getJSONObject(j).getInt("TotalRecovered"), cal));
-                                if (lastCountry.equals(selectedCountry)) {
-                                    position = j;
-                                    break;
-                                }
-                            }
-                            if (position != 0) {
-                                EditText totalConfirmed = findViewById(R.id.edit_totalconf);
-                                totalConfirmed.setText(String.valueOf(structuraSummaries.get(position).totalConfirmed));
-                                EditText newConfirmed = findViewById(R.id.edit_newconf);
-                                newConfirmed.setText(String.valueOf(structuraSummaries.get(position).newConfirmed));
-                                if (structuraSummaries.get(position).newConfirmed > 0) {
-                                    newConfirmed.setTypeface(newConfirmed.getTypeface(), Typeface.BOLD);
-                                    newConfirmed.setTextColor(getColor(android.R.color.holo_red_light));
-                                } else {
-                                    new MyVibrator(MainActivity.this);
-                                    Snackbar.make(findViewById(android.R.id.content), "Country not found", Snackbar.LENGTH_LONG).setAction("No action", null).show();
-                                }
-                                EditText totalDeaths = findViewById(R.id.edit_totaldeath);
-                                totalDeaths.setText(String.valueOf(structuraSummaries.get(position).totalDeaths));
-                                EditText newDeaths = findViewById(R.id.edit_newdeath);
-                                newDeaths.setText(String.valueOf(structuraSummaries.get(position).newDeaths));
-                                EditText totalRecovered = findViewById(R.id.edit_totalrec);
-                                totalRecovered.setText(String.valueOf(structuraSummaries.get(position).totalRecovered));
-                                EditText newRecovered = findViewById(R.id.edit_newrec);
-                                newRecovered.setText(String.valueOf(structuraSummaries.get(position).newRecovered));
-                                TextView lastUpdate = findViewById(R.id.tv_lasupdate);
-                                lastUpdate.setText(structuraSummaries.get(position).lastUpdate.getTime().toString());
-                                for (EditText edittext : new EditText[]{newConfirmed, newDeaths}) {
-                                    if (Integer.parseInt(edittext.getText().toString()) > 0) {
-                                        editStat(edittext, BAD_STAT);
+                            if (countrySummaryJSON.length() == 1) {
+                                if (countrySummaryJSON.getJSONObject(0).has("date")) {
+                                    cal.setTime(new Date(countrySummaryJSON.getJSONObject(0).getString("date")));
+                                    structuraSummaries.clear();
+                                    structuraSummaries.add(new StructuraSummary(countrySummaryJSON.getJSONObject(0).getString("countryName")
+                                            , countrySummaryJSON.getJSONObject(0).getInt("population")
+                                            , countrySummaryJSON.getJSONObject(0).getInt("newConfirmedInfected")
+                                            , countrySummaryJSON.getJSONObject(0).getInt("totalConfirmedInfected")
+                                            , countrySummaryJSON.getJSONObject(0).getInt("newDeaths")
+                                            , countrySummaryJSON.getJSONObject(0).getInt("totalDeaths")
+                                            , countrySummaryJSON.getJSONObject(0).getInt("newRecovered")
+                                            , countrySummaryJSON.getJSONObject(0).getInt("totalRecovered")
+                                            , cal));
+                                    EditText totalPopulation = findViewById(R.id.edit_population);
+                                    totalPopulation.setText(NumberFormat.getInstance().format(structuraSummaries.get(0).population));
+                                    EditText totalConfirmed = findViewById(R.id.edit_totalconf);
+                                    totalConfirmed.setText(NumberFormat.getInstance().format(structuraSummaries.get(0).totalConfirmed));
+                                    EditText newConfirmed = findViewById(R.id.edit_newconf);
+                                    newConfirmed.setText(NumberFormat.getInstance().format(structuraSummaries.get(0).newConfirmed));
+                                    EditText totalDeaths = findViewById(R.id.edit_totaldeath);
+                                    totalDeaths.setText(NumberFormat.getInstance().format(structuraSummaries.get(0).totalDeaths));
+                                    EditText newDeaths = findViewById(R.id.edit_newdeath);
+                                    newDeaths.setText(NumberFormat.getInstance().format(structuraSummaries.get(0).newDeaths));
+                                    EditText totalRecovered = findViewById(R.id.edit_totalrec);
+                                    totalRecovered.setText(NumberFormat.getInstance().format(structuraSummaries.get(0).totalRecovered));
+                                    EditText newRecovered = findViewById(R.id.edit_newrec);
+                                    newRecovered.setText(NumberFormat.getInstance().format(structuraSummaries.get(0).newRecovered));
+                                    TextView lastUpdate = findViewById(R.id.tv_lasupdate);
+                                    lastUpdate.setText(structuraSummaries.get(0).lastUpdate.getTime().toString());
+                                    for (EditText edittext : new EditText[]{newConfirmed, newDeaths}) {
+                                        if (Integer.parseInt(edittext.getText().toString()) > 0) {
+                                            editStat(edittext, BAD_STAT);
+                                        } else {
+                                            editStat(edittext, NEUTRAL_STAT);
+                                        }
+                                    }
+                                    if (Integer.parseInt(newRecovered.getText().toString()) > 0) {
+                                        editStat(newRecovered, GOOD_STAT);
                                     } else {
-                                        editStat(edittext, NEUTRAL_STAT);
+                                        editStat(newRecovered, NEUTRAL_STAT);
+                                    }
+                                } else {
+                                    EditText totalPopulation = findViewById(R.id.edit_population);
+                                    totalPopulation.setText(NumberFormat.getInstance().format(countrySummaryJSON.getJSONObject(0).getInt("population")));
+                                    EditText totalConfirmed = findViewById(R.id.edit_totalconf);
+                                    EditText newConfirmed = findViewById(R.id.edit_newconf);
+                                    EditText totalDeaths = findViewById(R.id.edit_totaldeath);
+                                    EditText newDeaths = findViewById(R.id.edit_newdeath);
+                                    EditText totalRecovered = findViewById(R.id.edit_totalrec);
+                                    EditText newRecovered = findViewById(R.id.edit_newrec);
+                                    for (EditText editText : new EditText[]{totalConfirmed, newConfirmed, totalDeaths, newDeaths, totalRecovered, newRecovered}) {
+                                        editText.setText("NO DATA");
+                                        editStat(editText, BAD_STAT);
                                     }
                                 }
-                                if (Integer.parseInt(newRecovered.getText().toString()) > 0) {
-                                    editStat(newRecovered, GOOD_STAT);
-                                } else {
-                                    editStat(newRecovered, NEUTRAL_STAT);
-                                }
+                            } else {
+                                new MyVibrator(MainActivity.this);
+                                Snackbar.make(findViewById(android.R.id.content), "Country data could not be read", Snackbar.LENGTH_LONG).setAction("No action", null).show();
                             }
-                        } catch (ExecutionException | InterruptedException | JSONException | ParseException ex) {
+                        } catch (ExecutionException | InterruptedException | JSONException ex) {
                             if (BuildConfig.DEBUG) Log.e(TAG, "Exception :: " + ex.getMessage(), ex);
                         }
+                    } else {
+                        new MyVibrator(MainActivity.this);
+                        Snackbar.make(findViewById(android.R.id.content), "Country not found", Snackbar.LENGTH_LONG).setAction("No action", null).show();
                     }
                 }
             });

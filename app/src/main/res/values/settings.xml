@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="API_URL">https://api.covid19api.com</string>
-    <string name="API_Countries">/countries</string>
-    <string name="API_Summary">/summary</string>
+    <string name="API_URL" translatable="false">https://www.e-scape.dk/2020S3PBack/api</string>
+    <string name="API_Countries" translatable="false">/country</string>
+    <string name="API_Summary">/country/new/1</string>
 </resources>

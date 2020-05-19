@@ -5,8 +5,7 @@ import java.util.Calendar;
 
 public class StructuraSummary {
     public String country;
-    public String countryCode;
-    public String slug;
+    public int population;
     public int newConfirmed;
     public int totalConfirmed;
     public int newDeaths;
@@ -15,10 +14,9 @@ public class StructuraSummary {
     public int totalRecovered;
     public Calendar lastUpdate;
 
-    public StructuraSummary(String country, String countryCode, String slug, int newConfirmed, int totalConfirmed, int newDeaths, int totalDeaths, int newRecovered, int totalRecovered, Calendar lastUpdate) {
+    public StructuraSummary(String country, int population, int newConfirmed, int totalConfirmed, int newDeaths, int totalDeaths, int newRecovered, int totalRecovered, Calendar lastUpdate) {
         this.country = country;
-        this.countryCode = countryCode;
-        this.slug = slug;
+        this.population = population;
         this.newConfirmed = newConfirmed;
         this.totalConfirmed = totalConfirmed;
         this.newDeaths = newDeaths;
@@ -36,20 +34,12 @@ public class StructuraSummary {
         this.country = country;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public int getPopulation() {
+        return population;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
+    public void setPopulation(int population) {
+        this.population = population;
     }
 
     public int getNewConfirmed() {

@@ -38,14 +38,6 @@ public class RequestHandler {
                         Log.v(TAG, "HTTP GET :: " + s_url + " :: " + urlparams);
                     }
                     return new JSONArray(sendGet(s_url));
-                } else if (method.equals("GET_SUM")) {
-                    if (BuildConfig.DEBUG) {
-                        Log.v(TAG, "HTTP GET :: " + s_url + " :: " + urlparams);
-                    }
-                    JSONObject summary = new JSONObject(sendGet(s_url));
-                    JSONArray countries = new JSONArray();
-                    countries = summary.getJSONArray("Countries");
-                    return countries;
                 } else if (method.equals("POST")) {
                     if (BuildConfig.DEBUG) {
                         Log.v(TAG, "HTTP POST :: " + s_url + " :: " + urlparams);
@@ -55,14 +47,12 @@ public class RequestHandler {
                     if (BuildConfig.DEBUG) {
                         Log.v(TAG, "HTTP POST :: " + s_url + " :: " + urlparams);
                     }
-//                    return new JSONArray(sendMultiPost(s_url, urlparams));
-                }else if(method.equals("POST4E")) {
+                } else if(method.equals("POST4E")) {
                     if (BuildConfig.DEBUG) {
                         Log.v(TAG, "HTTP POST :: " + s_url + " :: " + urlparams);
                     }
                     return new JSONArray(sendPost4E(s_url, urlparams));
-                }
-                else {
+                } else {
                     if (BuildConfig.DEBUG) {
                         Log.e(TAG, "Unknown method :: " + method);
                     }
@@ -237,7 +227,7 @@ public class RequestHandler {
             in.close();
             return response.toString();
         } else {
-            return null;
+            return "[]";
         }
     }
 

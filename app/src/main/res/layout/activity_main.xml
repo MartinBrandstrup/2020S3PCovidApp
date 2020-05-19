@@ -31,7 +31,7 @@
                 android:id="@+id/tv_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Use the dropdown\nto select country"
+                android:text="@string/use_the_dropdown_nto_select_country"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_label"
                 app:layout_constraintStart_toStartOf="parent"
-                android:hint="Choose country"/>
+                android:hint="@string/choose_country"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -57,14 +57,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+            <TextView
+                    android:id="@+id/tv_label_population"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="@string/population"/>
+
+            <EditText
+                    android:id="@+id/edit_population"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label_population"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
 
             <TextView
                     android:id="@+id/tv_label_totalconf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_population"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="Total Confirmed"/>
+                    android:text="@string/total_confirmed"/>
 
             <EditText
                     android:id="@+id/edit_totalconf"
@@ -80,7 +96,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/edit_totalconf"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="New Confirmed"/>
+                    android:text="@string/new_confirmed"/>
 
             <EditText
                     android:id="@+id/edit_newconf"
@@ -96,7 +112,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/edit_newconf"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="Total Death"/>
+                    android:text="@string/total_death"/>
 
             <EditText
                     android:id="@+id/edit_totaldeath"
@@ -112,7 +128,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/edit_totaldeath"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="New Death"/>
+                    android:text="@string/new_death"/>
 
             <EditText
                     android:id="@+id/edit_newdeath"
@@ -128,7 +144,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/edit_newdeath"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="Total Recovered"/>
+                    android:text="@string/total_recovered"/>
 
             <EditText
                     android:id="@+id/edit_totalrec"
@@ -144,7 +160,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/edit_totalrec"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="New Recovered"/>
+                    android:text="@string/new_recovered"/>
 
             <EditText
                     android:id="@+id/edit_newrec"

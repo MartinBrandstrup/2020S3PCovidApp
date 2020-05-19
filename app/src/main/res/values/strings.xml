@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">COVID Live Status</string>
+    <string name="population">Population</string>
+    <string name="total_confirmed">Total Confirmed</string>
+    <string name="new_confirmed">New Confirmed</string>
+    <string name="total_death">Total Death</string>
+    <string name="new_death">New Death</string>
+    <string name="new_recovered">New Recovered</string>
+    <string name="total_recovered">Total Recovered</string>
+    <string name="use_the_dropdown_nto_select_country">Use the dropdown\nto select country</string>
+    <string name="choose_country">Choose country</string>
 </resources>
