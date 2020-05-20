@@ -136,6 +136,9 @@ public class MainActivity extends AppCompatActivity {
                                     newRecovered.setText(NumberFormat.getInstance().format(structuraSummaries.get(0).newRecovered));
                                     TextView lastUpdate = findViewById(R.id.tv_lasupdate);
                                     lastUpdate.setText(structuraSummaries.get(0).lastUpdate.getTime().toString());
+                                    for (EditText editText : new EditText[]{totalConfirmed, newConfirmed, totalDeaths, newDeaths, totalRecovered, newRecovered}) {
+                                        editStat(editText, NEUTRAL_STAT);
+                                    }
                                     for (EditText edittext : new EditText[]{newConfirmed, newDeaths}) {
                                         if (Integer.parseInt(edittext.getText().toString()) > 0) {
                                             editStat(edittext, BAD_STAT);
