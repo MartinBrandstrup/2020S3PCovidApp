@@ -2,6 +2,4 @@
 
 Part of a freelancing project
 
-A SWTOR story :)
-
 ![Image](./corona_virus2.png)
